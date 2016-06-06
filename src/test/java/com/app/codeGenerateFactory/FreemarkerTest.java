@@ -16,7 +16,7 @@ public class FreemarkerTest {
 	@Test
 	public void testGetPath() throws Exception {
 		String relativelyPath=System.getProperty("user.dir"); 
-		System.out.println(relativelyPath + "\\src\\main\\java\\");
+		System.out.println(relativelyPath + System.getProperty("file.separator") + "src\\main\\java\\");
 	}
 	
 	@Test

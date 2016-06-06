@@ -8,6 +8,11 @@ package com.app.code.constant;
 public interface Constans {
 	
 	/**
+	 * jdbc数据库文件名称
+	 */
+	public static final String SYSTEM_JDBC_FILE_NAME = "/jdbc.properties";
+	
+	/**
 	 * jdbc数据库连接
 	 */
 	public static final String SYSTEM_JDBC_URL = "jdbc.url";

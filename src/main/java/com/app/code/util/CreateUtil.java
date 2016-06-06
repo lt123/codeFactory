@@ -1,8 +1,8 @@
 package com.app.code.util;
 
-public class CreateCodeUtil {
+public class CreateUtil {
 	
-	private CreateCodeUtil(){}
+	private CreateUtil(){}
 	
 	/**
 	 * 

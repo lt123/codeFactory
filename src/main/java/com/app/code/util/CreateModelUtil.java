@@ -1,12 +1,10 @@
 package com.app.code.util;
 
-import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.util.Properties;
+import java.sql.PreparedStatement;
 
-import com.app.code.constant.Constans;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 根据表名称生成javabean
@@ -15,31 +13,20 @@ import com.app.code.constant.Constans;
  */
 public class CreateModelUtil {
 	
-	private static Connection conn = null;
-	private static Statement stmt = null;
+	private static Logger logger = LoggerFactory.getLogger(CreateModelUtil.class);
 	
-	static{
+	public static void createModel(String tableName){
 		try {
-			InputStream input = CreateModelUtil.class.getResourceAsStream("/jdbc.properties");
-			Properties prop = new Properties();
-			prop.load(input);
-			
-			conn = DriverManager.getConnection(
-					prop.getProperty(Constans.SYSTEM_JDBC_URL),
-					prop.getProperty(Constans.SYSTEM_JDBC_USERNAME),
-					prop.getProperty(Constans.SYSTEM_JDBC_PASSWORD));
-			stmt = conn.createStatement();
+			Connection conn = DBCommonUtil.getConn();
+			String sql = "select * form xx";
+			PreparedStatement pStatement = conn.prepareStatement(sql);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("创建javabean出错:",e.getMessage());
 		}
 	}
 	
-	public static void createModel(String tableName){
-		
-	}
-	
 	public static void main(String[] args) {
-		
+		CreateModelUtil.createModel("");
 	}
 }
