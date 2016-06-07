@@ -1,15 +1,16 @@
 package com.app.code.util;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import javax.management.loading.PrivateClassLoader;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.app.code.constant.Constans;
 import com.app.code.exception.TableNotFoundException;
 import com.app.code.model.DbModel;
 
@@ -19,13 +20,20 @@ public class DBCommonUtil {
 	
 	public static Connection getConn(){
 		try {
-			DbModel dbModel =DbModel.getInstance();
-			return DriverManager.getConnection(dbModel.getUrl(),dbModel.getUsername(),dbModel.getPassword());
+			InputStream input = DbModel.class.getResourceAsStream(Constans.SYSTEM_JDBC_FILE_NAME);
+			Properties prop = new Properties();
+			prop.load(input);
+			return DriverManager.getConnection(prop.getProperty(Constans.SYSTEM_JDBC_URL),
+					prop.getProperty(Constans.SYSTEM_JDBC_USERNAME),
+					prop.getProperty(Constans.SYSTEM_JDBC_PASSWORD));
 		} catch (Exception e) {
 			logger.error("获取数据库连接出错：",e.getMessage());
+			
 		}
 		return null;
 	}
+	
+	
 	
 	public static void checkTable(String tableName) {
 		try {
@@ -34,7 +42,7 @@ public class DBCommonUtil {
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
-				if(tableName.equals(rs.getString(1))) {
+				if(tableName.equalsIgnoreCase(rs.getString(1))) {
 					return;
 				}
 			}
@@ -42,8 +50,6 @@ public class DBCommonUtil {
 			e.printStackTrace();
 			logger.error("表不存在:",e.getMessage());
 			throw new TableNotFoundException("表>" + tableName + "不存在");
-		}finally {
-			System.out.println("DBCommonUtil.checkTable()");
 		}
 	}
 	
@@ -59,6 +65,7 @@ public class DBCommonUtil {
 	}
 	public static void main(String[] args) {
 //		checkTable("user");
-		test();
+//		test();
+		System.out.println(getConn());
 	}
 }

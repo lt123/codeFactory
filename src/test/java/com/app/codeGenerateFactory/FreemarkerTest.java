@@ -21,7 +21,6 @@ public class FreemarkerTest {
 	
 	@Test
 	public void testCreate() throws Exception {
-		
 		// 获取项目根路径
 		String relativelyPath=System.getProperty("user.dir"); 
 		// 获取模板路径

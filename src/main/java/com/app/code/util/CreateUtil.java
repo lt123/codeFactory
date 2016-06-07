@@ -9,7 +9,10 @@ public class CreateUtil {
 	 * @param name 表名称
 	 * @param isCover 是否覆盖生成
 	 */
-	public static void createCode(String name,Boolean isCover){
+	public static void createCode(String tableName,boolean isCover){
+		// 创建javabean
+		CreateModelUtil.createModel(tableName,isCover);
+		
 		
 	}
 	
