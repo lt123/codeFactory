@@ -32,4 +32,24 @@ public interface Constans {
 	 */
 	public static final String SYSTEM_JDBC_PASSWORD = "jdbc.password"; 
 	
+	/**
+	 * 生成文件的用户名
+	 */
+	public static final String MODEL_AUTHOR_NAME = "model.author.name";
+	
+	/**
+	 * 生成文件的包路径
+	 */
+	public static final String MODEL_BASE_PACKAGE = "model.base.package";
+	
+	/**
+	 * 生成javabean文件的包名称
+	 */
+	public static final String MODEL_TYPE = "model.type";
+	
+	/**
+	 * freemark模板路径
+	 */
+	public static final String FREEMARK_TEMPLATE_PATH = "freemark.template.path";
+	
 }

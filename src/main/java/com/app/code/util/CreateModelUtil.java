@@ -27,19 +27,11 @@ public class CreateModelUtil {
 			
 			TableModel tModel = createTabModel(conn, tableName);
 			
-			String classContent = createClassContent(tModel);
-			
-				
 		} catch (Exception e) {
 			logger.error("创建javabean出错:",e.getMessage());
 		}
 	}
 	
-	private static String createClassContent(TableModel tModel) {
-		
-		return "";
-	}
-
 	/**
 	 * 根据表名称创建表对象
 	 * @param conn
@@ -68,7 +60,7 @@ public class CreateModelUtil {
 					//判断是否导入util包
 					String type = columnRs.getString("TYPE_NAME");
 					if("DATETIME".equalsIgnoreCase(type) || "TIMESTAMP".equalsIgnoreCase(type)) {
-						tModel.setImportUtil(true);
+						tModel.setFlag(true);
 					}
 					
 					tModel.getColName()[i] = columnRs.getString("COLUMN_NAME");

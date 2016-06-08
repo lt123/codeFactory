@@ -1,27 +1,15 @@
-package com.app.codeGenerateFactory;
+package com.app.code.util;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
 
 import com.app.code.model.User;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-public class FreemarkerTest {
-	
-	@Test
-	public void testGetPath() throws Exception {
-		String relativelyPath=System.getProperty("user.dir"); 
-		System.out.println(relativelyPath + System.getProperty("file.separator") + "src\\main\\java\\");
-	}
-	
-	@Test
+public class FreemarkUtil {
 	public void testCreate() throws Exception {
 		// 获取项目根路径
 		String relativelyPath=System.getProperty("user.dir"); 
@@ -46,7 +34,7 @@ public class FreemarkerTest {
 		User dataModel = new User();
 		
 		// 6、创建需要输出的文件writer
-		Writer out = new FileWriter(new File("/test222.java"));
+		Writer out = new FileWriter(new File("/test.java"));
 		
 		// 7、写数据
 		template.process(dataModel, out);

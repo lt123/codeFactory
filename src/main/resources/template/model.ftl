@@ -1,17 +1,11 @@
-package com.app.code.model;
+package ${basePackage};
 
 /**
- * 表相关属性的封装
+ * ${tabDesc}
  * @author admin
  *
  */
 public class TableModel {
-	
-	/**
-	 * 表名称
-	 */
-	public String tabName;
-	
 	/**
 	 * 表字段
 	 */
@@ -35,7 +29,7 @@ public class TableModel {
 	/**
 	 * 是否导入util包
 	 */
-	public boolean flag;
+	public boolean isImportUtil;
 
 	/**
 	 * 
@@ -78,13 +72,20 @@ public class TableModel {
 	public void setTabDesc(String tabDesc) {
 		this.tabDesc = tabDesc;
 	}
-
-	public boolean isFlag() {
-		return flag;
+	
+	public boolean isImportUtil() {
+		return isImportUtil;
 	}
 
-	public void setFlag(boolean flag) {
-		this.flag = flag;
+	public void setImportUtil(boolean isImportUtil) {
+		this.isImportUtil = isImportUtil;
 	}
 
+	@Override
+	public String toString() {
+		return "TableModel [colName=" + Arrays.toString(colName) + ", colType=" + Arrays.toString(colType)
+				+ ", colDesc=" + Arrays.toString(colDesc) + ", tabDesc=" + tabDesc + ", isImportUtil=" + isImportUtil
+				+ "]";
+	}
+	
 }
