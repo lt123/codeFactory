@@ -1,11 +1,8 @@
-package com.app.codeGenerateFactory;
+package com.app.code.test;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 
 import com.app.code.model.User;
@@ -26,13 +23,13 @@ public class FreemarkerTest {
 		// 获取项目根路径
 		String relativelyPath=System.getProperty("user.dir"); 
 		// 获取模板路径
-		relativelyPath = relativelyPath + "\\src\\main\\resources\\template";
+		relativelyPath = relativelyPath + "/src/main/resources/template";
 		
 		// 1、创建freemark的配置对象
 		Configuration configuration = new Configuration(Configuration.getVersion());
 		
 		// 2、设置模板地址
-		configuration.setDirectoryForTemplateLoading(new File(relativelyPath));
+		configuration.setClassForTemplateLoading(FreemarkerTest.class, "/template");
 		
 		// 3、设置编码
 		configuration.setDefaultEncoding("utf-8");
@@ -46,7 +43,7 @@ public class FreemarkerTest {
 		User dataModel = new User();
 		
 		// 6、创建需要输出的文件writer
-		Writer out = new FileWriter(new File("/test222.java"));
+		Writer out = new FileWriter(new File(relativelyPath + "//test2222.java"));
 		
 		// 7、写数据
 		template.process(dataModel, out);

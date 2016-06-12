@@ -10,10 +10,10 @@ public class CreateUtil {
 	 * @param isCover 是否覆盖生成
 	 */
 	public static void createCode(String tableName,boolean isCover){
+		
 		// 创建javabean
 		CreateModelUtil.createModel(tableName,isCover);
-		
-		
+			
 	}
 	
 }

@@ -46,26 +46,14 @@ public class DBCommonUtil {
 					return;
 				}
 			}
+			throw new TableNotFoundException("表>" + tableName + "不存在");
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("表不存在:",e.getMessage());
-			throw new TableNotFoundException("表>" + tableName + "不存在");
+			logger.error("检查表是否存在出错：",e.getMessage());
 		}
 	}
 	
-	public static void test(){
-		try {
-			System.out.println("DBCommonUtil.test()>>try");
-			return;
-		} catch (Exception e) {
-			System.out.println("DBCommonUtil.test()>>catch");
-		}finally {
-			System.out.println("DBCommonUtil.test()>>finally");
-		}
-	}
 	public static void main(String[] args) {
-//		checkTable("user");
-//		test();
-		System.out.println(getConn());
+		checkTable("xx");
 	}
 }

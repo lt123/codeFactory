@@ -4,9 +4,9 @@ package com.app.code.model;
 import java.util.Date;
 </#if>
 
-/**
- * 
- * @author admin
- *
- */
-public class TableModel {
+
+=====
+
+<#list passwords as pwd>
+	${pwd} >> ${usernames[pwd_index]}
+</#list>

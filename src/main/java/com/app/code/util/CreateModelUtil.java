@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.app.code.constant.Constans;
+import com.app.code.model.PojoModel;
 import com.app.code.model.TableModel;
 
 /**
@@ -25,8 +27,15 @@ public class CreateModelUtil {
 			
 			Connection conn = DBCommonUtil.getConn();
 			
+			// 拼装pojo对象
 			TableModel tModel = createTabModel(conn, tableName);
+			PojoModel pojoModel = PojoModel.getInstance();
+			pojoModel.setTableModel(tModel);
 			
+			// 文件相对于项目 /src/main/java 的路径
+			String distinctPath = (pojoModel.getBasePackage() + "." + pojoModel.getTypeModel()).replace(".", "/");
+			String fileName = tModel.getTabName() + ".java";
+			FreemarkUtil.createTemplate(Constans.FREEMARK_TEMPLATE_MODEL_NAME, pojoModel, distinctPath, fileName, isCover);
 		} catch (Exception e) {
 			logger.error("创建javabean出错:",e.getMessage());
 		}
@@ -53,6 +62,7 @@ public class CreateModelUtil {
 				
 				// 初始化表对象
 				tModel = new TableModel(columnCount);
+				tModel.setTabName(parseTabName(tableName));
 				
 				// 拼装值
 				int i = 0;
@@ -64,7 +74,7 @@ public class CreateModelUtil {
 					}
 					
 					tModel.getColName()[i] = columnRs.getString("COLUMN_NAME");
-					tModel.getColType()[i] = columnRs.getString("TYPE_NAME");
+					tModel.getColType()[i] = sqlType2JavaType(columnRs.getString("TYPE_NAME"));
 					tModel.getColDesc()[i] = columnRs.getString("REMARKS");
 					i++;
 				}
@@ -72,11 +82,14 @@ public class CreateModelUtil {
 				String sql = "show create table " + tableName;
 				ResultSet rs2 = conn.createStatement().executeQuery(sql);
 				while (rs2.next()) {
-					tModel.setTabDesc(rs2.getString(2).split("COMMENT=")[1].replace("'", ""));
+					String[] split = rs2.getString(2).split("COMMENT=");
+					if(split.length == 2) { //有注释
+						tModel.setTabDesc(split[1].replace("'", ""));
+					}else {
+						tModel.setTabDesc("");
+					}
+					
 				}
-				
-				System.out.println(tModel);
-				
 			}
 			
 			return tModel;
@@ -88,34 +101,67 @@ public class CreateModelUtil {
 	}
 	
 	/**
-	 * @Title: getComments
-	 * @Description: TODO(得到表字段的注释 封装到map里面)
-	 * @param table
-	 * @return Map<String,String>
+	 * 将mysql的类型转换为java类型
+	 * @param sqlType mysql的类型
+	 * @return
 	 */
-	/*public static Map<String, String> getRemarks(String table) {
-		Map<String, String> column_infoMap = new HashMap<>();
-		try {
-			DatabaseMetaData dbmd = conn.getMetaData();
-			ResultSet resultSet = dbmd.getTables(null, "%", "%",
-					new String[] { "TABLE" });
-			while (resultSet.next()) {
-				String tableName = resultSet.getString("TABLE_NAME");
-				if (tableName.equals(table)) {
-					ResultSet rs = dbmd.getColumns(null, "%", tableName, "%");
-					while (rs.next()) {
-						column_infoMap.put(rs.getString("COLUMN_NAME"),
-								rs.getString("REMARKS"));
-
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	private static String sqlType2JavaType(String sqlType) {
+		if(sqlType.equalsIgnoreCase("bit")){
+			return "boolean";
+		}else if(sqlType.equalsIgnoreCase("tinyint")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("smallint")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("int")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("bigint")){
+			return "Long";
+		}else if(sqlType.equalsIgnoreCase("float")){
+			return "Float";
+		}else if(sqlType.equalsIgnoreCase("decimal") || sqlType.equalsIgnoreCase("numeric") 
+				|| sqlType.equalsIgnoreCase("real") || sqlType.equalsIgnoreCase("money") 
+				|| sqlType.equalsIgnoreCase("smallmoney")){
+			return "Double";
+		}else if(sqlType.equalsIgnoreCase("varchar") || sqlType.equalsIgnoreCase("char") 
+				|| sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar") 
+				|| sqlType.equalsIgnoreCase("text")){
+			return "String";
+		}else if(sqlType.equalsIgnoreCase("datetime")){
+			return "Date";
+		}else if(sqlType.equalsIgnoreCase("image")){
+			return "Blod";
+		}else if(sqlType.equalsIgnoreCase("timestamp")){
+			return "Date";
+		}else if(sqlType.equalsIgnoreCase("int unsigned")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("tinyint unsigned")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("mediumint unsigned")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("date")){
+			return "Date";
+		}else if(sqlType.equalsIgnoreCase("smallint unsigned")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("mediumint")){
+			return "Integer";
+		}else if(sqlType.equalsIgnoreCase("DECIMAL UNSIGNED")){
+			return "BigDecimal";
 		}
-		return column_infoMap;
-	}*/
-	
+		return null;
+	}
+
+	/**
+	 * 格式化表名称 首字母大写 去掉_
+	 * @param tableName
+	 * @return
+	 */
+	private static String parseTabName(String tableName) {
+		tableName.replace("_", "");
+		StringBuilder sb = new StringBuilder(tableName);
+		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+		return sb.toString();
+	}
+
 	public static void main(String[] args) {
 		CreateModelUtil.createModel("user2",true);
 	}

@@ -1,91 +1,46 @@
-package ${basePackage};
+package ${basePackage}.${typeModel};
+<#if tableModel.flag>
+
+import java.util.Date;
+</#if>
 
 /**
- * ${tabDesc}
- * @author admin
- *
+ * ${tableModel.tabDesc}
+ * @author: ${author}
+ * @date: ${createDate}
+ * create by codeFactory
  */
-public class TableModel {
+public class ${tableModel.tabName} {
+	<#list tableModel.colName as col>
+	<#if tableModel.colDesc[col_index]!="">
 	/**
-	 * 表字段
+	 * ${tableModel.colDesc[col_index]}
 	 */
-	public String[] colName;
+	</#if>
+	public ${tableModel.colType[col_index]} ${col};
 	
-	/**
-	 * 表字段类型
-	 */
-	public String[] colType;
+	</#list>
 	
-	/**
-	 * 表字段描述
-	 */
-	public String[] colDesc;
+	<#list tableModel.colName as col>
+	public ${tableModel.colType[col_index]} get${col?cap_first}() {
+		return ${col};
+	}
+
+	public void set${col?cap_first}(${tableModel.colType[col_index]} ${col}) {
+		this.${col} = ${col};
+	}
+	</#list>
 	
-	/**
-	 * 表描述
-	 */
-	public String tabDesc;
-	
-	/**
-	 * 是否导入util包
-	 */
-	public boolean isImportUtil;
-
-	/**
-	 * 
-	 * @param columnCount 表字段长度
-	 */
-	public TableModel(Integer columnCount) {
-		this.colName = new String[columnCount];
-		this.colType = new String[columnCount];
-		this.colDesc = new String[columnCount];
-	}
-
-	public String[] getColName() {
-		return colName;
-	}
-
-	public void setColName(String[] colName) {
-		this.colName = colName;
-	}
-
-	public String[] getColType() {
-		return colType;
-	}
-
-	public void setColType(String[] colType) {
-		this.colType = colType;
-	}
-
-	public String[] getColDesc() {
-		return colDesc;
-	}
-
-	public void setColDesc(String[] colDesc) {
-		this.colDesc = colDesc;
-	}
-
-	public String getTabDesc() {
-		return tabDesc;
-	}
-
-	public void setTabDesc(String tabDesc) {
-		this.tabDesc = tabDesc;
-	}
-	
-	public boolean isImportUtil() {
-		return isImportUtil;
-	}
-
-	public void setImportUtil(boolean isImportUtil) {
-		this.isImportUtil = isImportUtil;
-	}
-
 	@Override
 	public String toString() {
-		return "TableModel [colName=" + Arrays.toString(colName) + ", colType=" + Arrays.toString(colType)
-				+ ", colDesc=" + Arrays.toString(colDesc) + ", tabDesc=" + tabDesc + ", isImportUtil=" + isImportUtil
-				+ "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append("${tableModel.tabName} [");
+		<#list tableModel.colName as col>
+			sb.append("${col}=" + ${col} + ",");
+		</#list>
+		sb.replace(sb.length()-1, sb.length(), " ]");
+		return sb.toString();
 	}
+	
 	
 }

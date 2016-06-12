@@ -100,5 +100,15 @@ public class PojoModel {
 	public void setTableModel(TableModel tableModel) {
 		this.tableModel = tableModel;
 	}
+	
+	@Override
+	public String toString() {
+		return "PojoModel [basePackage=" + basePackage + ", typeModel=" + typeModel + ", author=" + author
+				+ ", createDate=" + createDate + ", tableModel=" + tableModel + "]";
+	}
+
+	public static void main(String[] args) {
+		System.out.println(PojoModel.getInstance());
+	}
 
 }

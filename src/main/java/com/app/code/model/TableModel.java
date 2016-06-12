@@ -1,5 +1,7 @@
 package com.app.code.model;
 
+import java.util.Arrays;
+
 /**
  * 表相关属性的封装
  * @author admin
@@ -85,6 +87,21 @@ public class TableModel {
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+
+	public String getTabName() {
+		return tabName;
+	}
+
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+
+	@Override
+	public String toString() {
+		return "TableModel [tabName=" + tabName + ", colName=" + Arrays.toString(colName) + ", colType="
+				+ Arrays.toString(colType) + ", colDesc=" + Arrays.toString(colDesc) + ", tabDesc=" + tabDesc
+				+ ", flag=" + flag + "]";
 	}
 
 }

@@ -48,8 +48,13 @@ public interface Constans {
 	public static final String MODEL_TYPE = "model.type";
 	
 	/**
-	 * freemark模板路径
+	 * freemark模板路径 相对于项目根路径
 	 */
 	public static final String FREEMARK_TEMPLATE_PATH = "freemark.template.path";
+	
+	/**
+	 * model模板名称
+	 */
+	public static final String FREEMARK_TEMPLATE_MODEL_NAME = "freemark.template.model.name";
 	
 }
