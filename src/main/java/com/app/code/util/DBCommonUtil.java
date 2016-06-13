@@ -33,8 +33,6 @@ public class DBCommonUtil {
 		return null;
 	}
 	
-	
-	
 	public static void checkTable(String tableName) {
 		try {
 			Connection conn = getConn();
@@ -53,7 +51,4 @@ public class DBCommonUtil {
 		}
 	}
 	
-	public static void main(String[] args) {
-		checkTable("xx");
-	}
 }

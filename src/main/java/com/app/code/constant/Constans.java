@@ -55,6 +55,6 @@ public interface Constans {
 	/**
 	 * model模板名称
 	 */
-	public static final String FREEMARK_TEMPLATE_MODEL_NAME = "freemark.template.model.name";
+	public static final String FREEMARK_TEMPLATE_MODEL = "freemark.template.model.name";
 	
 }

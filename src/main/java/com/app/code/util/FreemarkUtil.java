@@ -21,17 +21,14 @@ public class FreemarkUtil {
 	 * 
 	 * @param templateName model模板名称 参考com.app.code.constant.Constans
 	 * @param dataModel 需要替换数据的javabean
-	 * @param distinctPath 文件相对于项目 /src/main/java 的路径
+	 * @param distinctPath 文件相对于项目 /src/main/java 的路径 例如：com/app/code/model
 	 * @param fileName 文件名称
 	 * @param isCover 是否覆盖
 	 */
-	public static void createTemplate(String templateName,Object dataModel,String distinctPath,String fileName,boolean isCover) {
+	public static void createTemplate(String templateName,Object dataModel,String dirPath,String fileName,boolean isCover) {
 		try {
 			// 加载配置文件
 			Properties prop = PropertiesUtil.getInstance().load("resources");
-			
-			// 获取项目根路径
-			String relativelyPath=System.getProperty("user.dir"); 
 			
 			// 1、创建freemark的配置对象
 			Configuration configuration = new Configuration(Configuration.getVersion());
@@ -42,10 +39,8 @@ public class FreemarkUtil {
 			// 4、创建模板对象(根路径是模板地址)
 			Template template = configuration.getTemplate(prop.getProperty(templateName));
 			// 5、创建需要输出的文件writer
-			String dirPath = relativelyPath + "/src/main/java/"; // 当前项目java的路径
-			String fullPath = dirPath + distinctPath; //需要创建文件的路径
+			File file = FileUtil.createFile(dirPath,fileName);
 			
-			File file = new File(fullPath + "/" + fileName);
 			if(!isCover){
 				if(file.exists()) {
 					System.err.println("文件：" + file.getAbsolutePath() + " 已存在!");
@@ -64,6 +59,5 @@ public class FreemarkUtil {
 			logger.error("代码生成出错：" + e.getMessage());
 		}
 	}
-	
-	
+
 }

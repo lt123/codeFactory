@@ -3,9 +3,10 @@ package com.app.code.test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.app.code.model.User;
+import org.junit.Test;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -38,9 +39,8 @@ public class FreemarkerTest {
 		Template template = configuration.getTemplate("helloworld.ftl");
 		
 		// 5、创建需要替换字符的map(可以是javabean也可以是map，推荐map)
-		/*Map<String, Object> dataModel = new HashMap<>();
-		dataModel.put("username", "hello world\r\n");*/
-		User dataModel = new User();
+		Map<String, Object> dataModel = new HashMap<>();
+		dataModel.put("username", "hello world\r\n");
 		
 		// 6、创建需要输出的文件writer
 		Writer out = new FileWriter(new File(relativelyPath + "//test2222.java"));
