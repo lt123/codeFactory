@@ -41,12 +41,12 @@ public class PojoModel {
 	
 	public static PojoModel getInstance(){
 		if (pojoModel == null) {
-			Properties prop = PropertiesUtil.getInstance().load("resources");
+			Properties prop = PropertiesUtil.getInstance().load(Constans.FACTORY_RESOURCES_NAME);
 			
 			pojoModel = new PojoModel();
 			pojoModel.setAuthor(prop.getProperty(Constans.MODEL_AUTHOR_NAME));
-			pojoModel.setBasePackage(prop.getProperty(Constans.MODEL_BASE_PACKAGE));
-			pojoModel.setTypeModel(prop.getProperty(Constans.MODEL_TYPE));
+			pojoModel.setBasePackage(prop.getProperty(Constans.PROJECT_PACKAGE_BASE));
+			pojoModel.setTypeModel(prop.getProperty(Constans.MODEL_PACKAGE_NAME));
 			pojoModel.setCreateDate(DateUtil.getCurrent());
 			
 		}

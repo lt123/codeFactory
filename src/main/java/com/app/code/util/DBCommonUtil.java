@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.app.code.constant.Constans;
 import com.app.code.exception.TableNotFoundException;
-import com.app.code.model.DbModel;
 
 public class DBCommonUtil {
 	
@@ -20,7 +19,7 @@ public class DBCommonUtil {
 	
 	public static Connection getConn(){
 		try {
-			InputStream input = DbModel.class.getResourceAsStream(Constans.SYSTEM_JDBC_FILE_NAME);
+			InputStream input = DBCommonUtil.class.getResourceAsStream(Constans.SYSTEM_JDBC_FILE_NAME);
 			Properties prop = new Properties();
 			prop.load(input);
 			return DriverManager.getConnection(prop.getProperty(Constans.SYSTEM_JDBC_URL),

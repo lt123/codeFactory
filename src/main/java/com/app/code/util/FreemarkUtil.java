@@ -28,7 +28,7 @@ public class FreemarkUtil {
 	public static void createTemplate(String templateName,Object dataModel,String dirPath,String fileName,boolean isCover) {
 		try {
 			// 加载配置文件
-			Properties prop = PropertiesUtil.getInstance().load("resources");
+			Properties prop = PropertiesUtil.getInstance().load(Constans.FACTORY_RESOURCES_NAME);
 			
 			// 1、创建freemark的配置对象
 			Configuration configuration = new Configuration(Configuration.getVersion());

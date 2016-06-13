@@ -71,7 +71,7 @@ public class CreateUtil {
 		try {
 			TableModel tModel = null;
 			DatabaseMetaData dbmd = conn.getMetaData();
-			ResultSet rs = dbmd.getTables(conn.getCatalog(), null, "user2", new String[]{"TABLE"});
+			ResultSet rs = dbmd.getTables(conn.getCatalog(), "%", "%", new String[]{"TABLE"});
 			while(rs.next()) {
 				ResultSet columnRs = dbmd.getColumns(conn.getCatalog(), null, tableName, "%");
 				
@@ -108,10 +108,8 @@ public class CreateUtil {
 					}else {
 						tModel.setTabDesc("");
 					}
-					
 				}
 			}
-			
 			return tModel;
 		} catch (Exception e) {
 			e.printStackTrace();

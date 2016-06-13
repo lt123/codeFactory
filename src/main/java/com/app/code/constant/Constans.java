@@ -33,6 +33,11 @@ public interface Constans {
 	public static final String SYSTEM_JDBC_PASSWORD = "jdbc.password"; 
 	
 	/**
+	 * 
+	 */
+	public static final String FACTORY_RESOURCES_NAME = "codeFactory";
+	
+	/**
 	 * 生成文件的用户名
 	 */
 	public static final String MODEL_AUTHOR_NAME = "model.author.name";
@@ -40,12 +45,12 @@ public interface Constans {
 	/**
 	 * 生成文件的包路径
 	 */
-	public static final String MODEL_BASE_PACKAGE = "model.base.package";
+	public static final String PROJECT_PACKAGE_BASE = "project.package.base";
 	
 	/**
 	 * 生成javabean文件的包名称
 	 */
-	public static final String MODEL_TYPE = "model.type";
+	public static final String MODEL_PACKAGE_NAME = "model.package.name";
 	
 	/**
 	 * freemark模板路径 相对于项目根路径
